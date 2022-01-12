@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import ru.neoflex.camalexample.dto.OrderDTO;
 
@@ -28,7 +29,7 @@ public class JsonXMLRoute extends RouteBuilder {
 
         rest("/order")
                 .post()
-                    .consumes("application/json")
+                    .consumes(MediaType.APPLICATION_JSON_VALUE)
                     .type(OrderDTO.class)
                     .route().routeId("json-order-to-xml")
                     .setHeader(Exchange.FILE_NAME).simple("${body.orderID}.xml")
